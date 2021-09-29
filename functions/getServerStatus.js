@@ -25,7 +25,6 @@ module.exports = async (index) => {
     const region = $(`.ags-js-serverResponse[data-index="${index}"]`).children(
       ".ags-ServerStatus-content-responses-response-server"
     );
-    console.log(region.length);
     servers = [];
     region.each((idx, el) => {
       server = { name: "", status: "" };
@@ -46,7 +45,7 @@ module.exports = async (index) => {
       })
       .map((s) => s.name);
     if (downServers.length === 0) {
-      return ["No servers down."];
+      return [`No servers down in ${regions[index]}.`];
     } else if (downServers.length === region.length) {
       // a.k.a. maintainance check
       return [`All ${regions[index]} servers are down.`];
@@ -55,7 +54,6 @@ module.exports = async (index) => {
         `Found ${region.length} servers offline.`,
         lastUpdated
       );
-      console.log(downServers);
       return downServers;
     }
   } catch (error) {
