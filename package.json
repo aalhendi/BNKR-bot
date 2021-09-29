@@ -1,0 +1,16 @@
+{
+  "name": "bnkr-bot",
+  "version": "1.0.0",
+  "description": "Discord bot for BNKR",
+  "main": "index.js",
+  "repository": "https://github.com/aalhendi/BNKR-bot",
+  "author": "aalhendi",
+  "license": "MIT",
+  "dependencies": {
+    "@discordjs/builders": "^0.6.0",
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "discord-api-types": "^0.23.1",
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0"
+  }
+}
