@@ -25,6 +25,9 @@ module.exports = async (index) => {
     const region = $(`.ags-js-serverResponse[data-index="${index}"]`).children(
       ".ags-ServerStatus-content-responses-response-server"
     );
+    var fullServers = 0;
+    var downServers = 0;
+    var upServers = 0;
     servers = [];
     region.each((idx, el) => {
       server = { name: "", status: "" };
@@ -32,30 +35,27 @@ module.exports = async (index) => {
         .children(".ags-ServerStatus-content-responses-response-server-name")
         .text()
         .trim();
-      server.status = $(el).children().children().attr("class").endsWith("up")
-        ? true
-        : false;
+      x = $(el).children().children().attr("class");
+      if (x.endsWith("up")) {
+        server.status = "up";
+        upServers++;
+      } else if (x.endsWith("full")) {
+        server.status = "full";
+        fullServers++;
+      } else {
+        server.status = "down";
+        downServers++;
+      }
       servers.push(server);
     });
-    downServers = servers
-      .filter((server) => {
-        if (!server.status) {
-          return server;
-        }
-      })
-      .map((s) => s.name);
-    if (downServers.length === 0) {
-      return [`No servers down in ${regions[index]}.`];
-    } else if (downServers.length === region.length) {
-      // a.k.a. maintainance check
-      return [`All ${regions[index]} servers are down.`];
-    } else {
-      downServers.unshift(
-        `Found ${region.length} servers offline.`,
-        lastUpdated
-      );
-      return downServers;
-    }
+
+    return [
+      lastUpdated,
+      `Found ${region.length} servers in ${regions[index]}.`,
+      `Up: ${upServers}`,
+      `Full: ${fullServers}`,
+      `Down: ${downServers}`,
+    ];
   } catch (error) {
     console.error(error);
   }
