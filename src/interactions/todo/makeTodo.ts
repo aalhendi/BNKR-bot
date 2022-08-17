@@ -1,7 +1,11 @@
-import { CommandInteraction, SlashCommandStringOption } from "discord.js";
-import Interaction from "../libs/structures/Interaction";
-import createEmbed from "../utils/createEmbed";
-import { db } from "../utils/prisma";
+import {
+	CommandInteraction,
+	Message,
+	SlashCommandStringOption
+} from "discord.js";
+import Interaction from "../../libs/structures/Interaction";
+import createEmbed from "../../utils/createEmbed";
+import { db } from "../../utils/prisma";
 
 export default class MakeTodo extends Interaction {
 	name = "make-todo";
@@ -18,7 +22,7 @@ export default class MakeTodo extends Interaction {
 		.setRequired(false);
 	options = [this.titleOp, this.contentOp];
 
-	async execute(interaction: CommandInteraction) {
+	async execute(interaction: CommandInteraction, message: Message) {
 		if (!interaction.isChatInputCommand()) return;
 
 		const title = interaction.options.getString("title");
@@ -49,7 +53,7 @@ export default class MakeTodo extends Interaction {
 							},
 							{
 								name: "Content",
-								value: todo.content ?? ""
+								value: todo.content ?? "null"
 							},
 							{
 								name: "Is Complete?",
@@ -58,10 +62,17 @@ export default class MakeTodo extends Interaction {
 							{
 								name: "Created At",
 								value: todo.createdAt.toISOString()
+							},
+							{
+								name: "ID",
+								value: todo.id
 							}
 						])
 					]
 				});
+				await message.react("✅");
+				await message.react("✏️");
+				await message.react("❌");
 			} catch (error) {
 				console.log(error);
 			}

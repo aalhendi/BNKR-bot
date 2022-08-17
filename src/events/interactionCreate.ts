@@ -11,12 +11,12 @@ export default class interactionCreate extends Event {
 		} else {
 			try {
 				// Gives bot whatever time it needs to reply
-				await interaction.deferReply();
+				const message = await interaction.deferReply({fetchReply:true});
 				// Get the command from collection.
 				const command = this.client.interactions.get(interaction.commandName);
 				if (command) {
 					// Run the command
-					await command.execute(interaction);
+					command.execute(interaction, message);
 				} else {
 					console.log(`Unknown command name ${interaction.commandName}`);
 				}

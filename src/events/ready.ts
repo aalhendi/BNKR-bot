@@ -10,7 +10,7 @@ export default class Ready extends Event {
 		// Deploy slash commands, needs to be run whenever commands change.
 		await client.interactions.deploy();
 		// Set presence
-		await client.user?.setPresence({
+		client.user?.setPresence({
 			status: "online",
 			activities: [
 				{
@@ -19,8 +19,5 @@ export default class Ready extends Event {
 				}
 			]
 		});
-		console.log(
-			`Ready! Logged in as ${this.client.user?.tag} on ${process.env.NODE_ENV}.`
-		);
 	}
 }

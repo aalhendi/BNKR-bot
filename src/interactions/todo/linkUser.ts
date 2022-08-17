@@ -1,6 +1,6 @@
 import { CommandInteraction } from "discord.js";
-import Interaction from "../libs/structures/Interaction";
-import { db } from "../utils/prisma";
+import Interaction from "../../libs/structures/Interaction";
+import { db } from "../../utils/prisma";
 
 export default class LinkUser extends Interaction {
 	name = "link-user";
