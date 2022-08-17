@@ -5,7 +5,7 @@ import {
 } from "discord.js";
 import Interaction from "../../libs/structures/Interaction";
 
-export default class Avatar extends Interaction {
+export default class Info extends Interaction {
 	name = "info";
 	description = "Get infor about a user or the server";
 	userOp = new SlashCommandUserOption()
