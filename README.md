@@ -1,1 +1,1 @@
-# BNKR-bot
+# General Purpose Discord Bot (GPDB)

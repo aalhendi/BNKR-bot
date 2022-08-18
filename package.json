@@ -1,11 +1,19 @@
 {
-	"name": "bnkr-bot",
+	"name": "GPDB",
 	"version": "1.0.0",
-	"description": "Discord bot for BNKR",
+	"description": "A General Purpose Discord Bot",
 	"main": "dist/index.js",
-	"repository": "https://github.com/aalhendi/BNKR-bot",
+	"repository": "https://github.com/aalhendi/GPDB",
 	"author": "aalhendi",
 	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/aalhendi/GPDB.git"
+	},
+	"bugs": {
+		"url": "https://github.com/GPDB/GPDB/issues"
+	},
+	"format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
 	"dependencies": {
 		"@discordjs/builders": "^1.1.0",
 		"@discordjs/rest": "^1.0.1",
