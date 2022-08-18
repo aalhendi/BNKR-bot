@@ -1,9 +1,7 @@
 import {
 	CommandInteraction,
 	Message,
-	MessageReaction,
-	SlashCommandStringOption,
-	User
+	SlashCommandStringOption
 } from "discord.js";
 import Interaction from "../../libs/structures/Interaction";
 import createEmbed from "../../utils/createEmbed";
@@ -68,8 +66,8 @@ export default class GetTodo extends Interaction {
 									value: foundTodo.content ?? "null"
 								},
 								{
-									name: "Is Complete?",
-									value: foundTodo.isComplete ? "yes" : "no"
+									name: "Status",
+									value: foundTodo.status
 								},
 								{
 									name: "Created At",
@@ -91,28 +89,6 @@ export default class GetTodo extends Interaction {
 						content: "Could not find todo",
 						ephemeral: true
 					});
-					const filter = (reaction: MessageReaction, user: User) => {
-						return (
-							["✅", "✏️", "❌"].includes(reaction.emoji.name!) &&
-							user.id === interaction.user.id
-						);
-					};
-					await message
-						.awaitReactions({ filter, max: 1, time: 60000, errors: ["time"] })
-						.then((collected) => {
-							const reaction = collected.first();
-
-							if (reaction && reaction.emoji.name === "✅") {
-								message.reply("You reacted with a thumbs up.");
-							} else if (reaction && reaction.emoji.name === "✏️") {
-								message.reply("You reacted with a thumbs down.");
-							} else if (reaction && reaction.emoji.name === "❌") {
-								message.reply("You reacted with a thumbs down.");
-							}
-						})
-						.catch(() => {
-							message.reply("You reacted with none of the options.");
-						});
 				}
 			} catch (error) {
 				console.log(error);

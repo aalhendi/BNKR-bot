@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits } from "discord.js";
+import { Client, GatewayIntentBits, Partials } from "discord.js";
 import EventHandler from "./handlers/eventHandler";
 import InteractionHandler from "./handlers/interactionHandler";
 import SettingHandler from "./handlers/settingHandler";
@@ -20,7 +20,8 @@ export default class DiscordClient extends Client {
 				GatewayIntentBits.GuildMessages,
 				GatewayIntentBits.GuildPresences,
 				GatewayIntentBits.GuildMessageReactions
-			]
+			],
+			partials: [Partials.Message, Partials.Channel, Partials.Reaction]
 		});
 
 		// this.database = database;

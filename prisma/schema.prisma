@@ -23,7 +23,7 @@ model Todo {
   updatedAt  DateTime       @updatedAt
   title      String
   content    String?
-  isComplete Boolean        @default(false)
+  status     String         @default("Incomplete")
   author     User           @relation(fields: [authorId], references: [id])
   authorId   Int
 }

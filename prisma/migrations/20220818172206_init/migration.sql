@@ -7,12 +7,12 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Todo" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" TEXT NOT NULL PRIMARY KEY,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL,
     "title" TEXT NOT NULL,
     "content" TEXT,
-    "isComplete" BOOLEAN NOT NULL DEFAULT false,
+    "status" TEXT NOT NULL DEFAULT 'Incomplete',
     "authorId" INTEGER NOT NULL,
     CONSTRAINT "Todo_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );

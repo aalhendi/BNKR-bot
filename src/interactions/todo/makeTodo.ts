@@ -56,8 +56,8 @@ export default class MakeTodo extends Interaction {
 								value: todo.content ?? "null"
 							},
 							{
-								name: "Is Complete?",
-								value: todo.isComplete ? "yes" : "no"
+								name: "Status",
+								value: todo.status
 							},
 							{
 								name: "Created At",

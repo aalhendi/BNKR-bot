@@ -4,9 +4,9 @@ specifiers:
   '@discordjs/builders': ^1.1.0
   '@discordjs/rest': ^1.0.1
   '@prisma/client': ^4.2.1
-  '@types/node': ^18.6.3
-  '@typescript-eslint/eslint-plugin': ^5.32.0
-  '@typescript-eslint/parser': ^5.32.0
+  '@types/node': ^18.7.6
+  '@typescript-eslint/eslint-plugin': ^5.33.1
+  '@typescript-eslint/parser': ^5.33.1
   discord-api-types: ^0.37.2
   discord.js: ^14.2.0
   dotenv: ^16.0.1
@@ -14,7 +14,7 @@ specifiers:
   nodemon: ^2.0.19
   prisma: ^4.2.1
   ts-node: ^10.9.1
-  typescript: ^4.5.2
+  typescript: ^4.7.4
 
 dependencies:
   '@discordjs/builders': 1.1.0
@@ -69,7 +69,7 @@ packages:
       discord-api-types: 0.36.3
       file-type: 17.1.6
       tslib: 2.4.0
-      undici: 5.8.2
+      undici: 5.9.1
     dev: false
 
   /@eslint/eslintrc/1.3.0:
@@ -473,7 +473,7 @@ packages:
     dev: true
 
   /concat-map/0.0.1:
-    resolution: {integrity: sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=}
+    resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: true
 
   /create-require/1.1.1:
@@ -550,7 +550,7 @@ packages:
       fast-deep-equal: 3.1.3
       lodash.snakecase: 4.1.1
       tslib: 2.4.0
-      undici: 5.8.2
+      undici: 5.9.1
       ws: 8.8.1
     transitivePeerDependencies:
       - bufferutil
@@ -1353,8 +1353,8 @@ packages:
     resolution: {integrity: sha512-WxONCrssBM8TSPRqN5EmsjVrsv4A8X12J4ArBiiayv3DyyG3ZlIg6yysuuSYdZsVz3TKcTg2fd//Ujd4CHV1iA==}
     dev: true
 
-  /undici/5.8.2:
-    resolution: {integrity: sha512-3KLq3pXMS0Y4IELV045fTxqz04Nk9Ms7yfBBHum3yxsTR4XNn+ZCaUbf/mWitgYDAhsplQ0B1G4S5D345lMO3A==}
+  /undici/5.9.1:
+    resolution: {integrity: sha512-6fB3a+SNnWEm4CJbgo0/CWR8RGcOCQP68SF4X0mxtYTq2VNN8T88NYrWVBAeSX+zb7bny2dx2iYhP3XHi00omg==}
     engines: {node: '>=12.18'}
     dev: false
 
