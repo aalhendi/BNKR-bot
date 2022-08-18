@@ -3,6 +3,7 @@ import {
 	Message,
 	SlashCommandStringOption
 } from "discord.js";
+import { allowedTodoEmojis } from "../../utils/emojiLists";
 import Interaction from "../../libs/structures/Interaction";
 import createEmbed from "../../utils/createEmbed";
 import { db } from "../../utils/prisma";
@@ -80,9 +81,7 @@ export default class GetTodo extends Interaction {
 							])
 						]
 					});
-					await message.react("✅");
-					await message.react("✏️");
-					await message.react("❌");
+					allowedTodoEmojis.forEach(async (e) => await message.react(e));
 				} else {
 					await interaction.deleteReply();
 					await interaction.followUp({
