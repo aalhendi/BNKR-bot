@@ -71,7 +71,9 @@ export default class MakeTodo extends Interaction {
 						])
 					]
 				});
-				allowedTodoEmojis.forEach(async (e) => await message.react(e));
+				allowedTodoEmojis
+					.slice(0, -2) // All but last 2 emojis. (used for confirm delete)
+					.forEach(async (e) => await message.react(e));
 			} catch (error) {
 				console.log(error);
 			}

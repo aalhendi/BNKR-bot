@@ -81,7 +81,9 @@ export default class GetTodo extends Interaction {
 							])
 						]
 					});
-					allowedTodoEmojis.forEach(async (e) => await message.react(e));
+					allowedTodoEmojis
+						.slice(0, -2) // All but last 2 emojis. (used for confirmation)
+						.forEach(async (e) => await message.react(e));
 				} else {
 					await interaction.deleteReply();
 					await interaction.followUp({

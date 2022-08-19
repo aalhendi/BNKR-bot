@@ -36,12 +36,23 @@ export default async function handleTodoReaction(
 					break;
 			}
 			if (reaction.emoji.name === "🗑") {
+				await reaction.message.react("‼️");
+				await reaction.message.react("🚯");
+			} else if (reaction.emoji.name === "‼️") {
 				await reaction.message.delete();
 				await db.todo.delete({
 					where: {
 						id: todoId
 					}
 				});
+			} else if (reaction.emoji.name === "🚯") {
+				try {
+					await reaction.message.reactions.cache.get("‼️")?.remove();
+					await reaction.message.reactions.cache.get("🚯")?.remove();
+					// NOTE: Wastebin emoji will stay reacted by user because its too much work to remove the reaction. Don't want to spam API
+				} catch (error) {
+					console.error(error);
+				}
 			} else {
 				await db.todo.update({
 					where: {

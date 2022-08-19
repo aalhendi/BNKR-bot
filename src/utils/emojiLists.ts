@@ -1,1 +1,1 @@
-export const allowedTodoEmojis: Array<string> = ["✅", "✏️", "❌", "🗑"];
+export const allowedTodoEmojis: Array<string> = ["✅", "✏️", "❌", "🗑","‼️","🚯"];
