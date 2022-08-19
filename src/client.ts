@@ -19,7 +19,9 @@ export default class DiscordClient extends Client {
 				GatewayIntentBits.Guilds,
 				GatewayIntentBits.GuildMessages,
 				GatewayIntentBits.GuildPresences,
-				GatewayIntentBits.GuildMessageReactions
+				GatewayIntentBits.GuildMessageReactions,
+				GatewayIntentBits.DirectMessages,
+				GatewayIntentBits.DirectMessageReactions
 			],
 			partials: [Partials.Message, Partials.Channel, Partials.Reaction]
 		});

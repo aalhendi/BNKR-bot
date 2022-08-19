@@ -1,7 +1,8 @@
-import {allowedTodoEmojis} from "../utils/emojiLists"
+import { allowedBookMarkEmojis, allowedTodoEmojis } from "../utils/emojiLists";
 import { MessageReaction, User } from "discord.js";
 import Event from "../libs/structures/Event";
 import handleTodoReaction from "../utils/handleTodoReaction";
+import handleBookmarkReaction from "../utils/handleBookmarkReaction";
 
 export default class RessageReactionAdd extends Event {
 	name = "messageReactionAdd";
@@ -18,15 +19,17 @@ export default class RessageReactionAdd extends Event {
 				return;
 			}
 		}
-		// TODO: have sets of allowedEmojis, swtich case on which function based on which list has emoji
-		// l1 [a, b, c] case l1: function1(){}... etc
 		if (
 			reaction.emoji.name &&
 			allowedTodoEmojis.includes(reaction.emoji.name) &&
 			reaction.message.author?.id === process.env.CLIENT_ID
 		) {
-		  handleTodoReaction(reaction, user)
-
+			handleTodoReaction(reaction, user);
+		} else if (
+			reaction.emoji.name &&
+			allowedBookMarkEmojis.includes(reaction.emoji.name)
+		) {
+			handleBookmarkReaction(reaction, user);
 		}
 	}
 }

@@ -46,13 +46,9 @@ export default async function handleTodoReaction(
 					}
 				});
 			} else if (reaction.emoji.name === "🚯") {
-				try {
-					await reaction.message.reactions.cache.get("‼️")?.remove();
-					await reaction.message.reactions.cache.get("🚯")?.remove();
-					// NOTE: Wastebin emoji will stay reacted by user because its too much work to remove the reaction. Don't want to spam API
-				} catch (error) {
-					console.error(error);
-				}
+				await reaction.message.reactions.cache.get("‼️")?.remove();
+				await reaction.message.reactions.cache.get("🚯")?.remove();
+				// NOTE: Wastebin emoji will stay reacted by user because its too much work to remove the reaction. Don't want to spam API
 			} else {
 				await db.todo.update({
 					where: {
