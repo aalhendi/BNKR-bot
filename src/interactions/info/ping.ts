@@ -10,7 +10,7 @@ export default class Ping extends Interaction {
 		const execTime = Math.abs(Date.now() - interaction.createdTimestamp);
 		const apiLatency = Math.floor(this.client.ws.ping);
 
-		return interaction.editReply({
+		return interaction.reply({
 			embeds: [
 				createEmbed().addFields([
 					{

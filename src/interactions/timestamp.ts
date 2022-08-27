@@ -37,7 +37,7 @@ export default class Timestamp extends Interaction {
 		}
 		const ts = new Date(`${MM}-${dd}-${yy}-${hh}:${mm}`).getTime().toString();
 
-		await interaction.editReply({
+		await interaction.reply({
 			content: `
 ${`\`<t:${ts.substring(0, ts.length - 3)}:${"t"}>\``} ${`<t:${ts.substring(
 				0,

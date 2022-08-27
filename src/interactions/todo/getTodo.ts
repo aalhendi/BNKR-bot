@@ -26,8 +26,7 @@ export default class GetTodo extends Interaction {
 		const discordUserId = interaction.user.id;
 
 		if (todoId.length !== 36) {
-			await interaction.deleteReply();
-			await interaction.followUp({
+			await interaction.reply({
 				content: "todo ids are 36 chars",
 				ephemeral: true
 			});
@@ -49,13 +48,12 @@ export default class GetTodo extends Interaction {
 				});
 				if (foundTodo) {
 					if (foundTodo.authorId !== foundUser.id) {
-						await interaction.deleteReply();
-						await interaction.followUp({
+						await interaction.reply({
 							content: "Something went wrong...",
 							ephemeral: true
 						});
 					}
-					await interaction.editReply({
+					await interaction.reply({
 						embeds: [
 							createEmbed().addFields([
 								{
@@ -85,8 +83,7 @@ export default class GetTodo extends Interaction {
 						.slice(0, -2) // All but last 2 emojis. (used for confirmation)
 						.forEach(async (e) => await message.react(e));
 				} else {
-					await interaction.deleteReply();
-					await interaction.followUp({
+					await interaction.reply({
 						content: "Could not find todo",
 						ephemeral: true
 					});
@@ -95,8 +92,7 @@ export default class GetTodo extends Interaction {
 				console.log(error);
 			}
 		} else {
-			await interaction.deleteReply();
-			await interaction.followUp({
+			await interaction.reply({
 				content:
 					"Something went wrong... Could not find user. is your user linked with /link-user?",
 				ephemeral: true

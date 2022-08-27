@@ -18,23 +18,22 @@ export default class Avatar extends Interaction {
 		try {
 			if (!interaction.isChatInputCommand()) return;
 
-			const amount = await interaction.options.getInteger("amount");
+			const amount = interaction.options.getInteger("amount");
 
 			if (!amount || amount < 1 || amount >= 100) {
-				await interaction.editReply({
+				await interaction.reply({
 					content: "Input must be a number between 1 and 99."
 				});
 			} else if (interaction.channel?.type === ChannelType.GuildText) {
-				await interaction.deleteReply();
 				await interaction.channel.bulkDelete(amount, true);
-				await interaction.followUp({
+				await interaction.reply({
 					content: `Successfully pruned ${amount} messages`,
 					ephemeral: true
 				});
 			}
 		} catch (error) {
 			console.error(error);
-			interaction.followUp({
+			interaction.reply({
 				content: "There was an error trying to prune messages in this channel!",
 				ephemeral: true
 			});

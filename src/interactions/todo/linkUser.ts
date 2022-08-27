@@ -33,16 +33,14 @@ export default class LinkUser extends Interaction {
 			});
 		} catch (error) {
 			console.log(error);
-			interaction.deleteReply();
-			interaction.followUp({
+			interaction.reply({
 				content: "Something went wrong...",
 				ephemeral: true
 			});
 			return;
 		}
 
-		interaction.deleteReply();
-		interaction.followUp({
+		interaction.reply({
 			content: "Successfully linked!",
 			ephemeral: true
 		});

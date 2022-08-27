@@ -1,92 +1,59 @@
 import {
+	ActionRowBuilder,
 	CommandInteraction,
 	Message,
-	SlashCommandStringOption
+	ModalActionRowComponentBuilder,
+	ModalBuilder,
+	TextInputBuilder,
+	TextInputStyle
 } from "discord.js";
-import { allowedTodoEmojis } from "../../utils/emojiLists";
 import Interaction from "../../libs/structures/Interaction";
-import createEmbed from "../../utils/createEmbed";
-import { db } from "../../utils/prisma";
 
 export default class MakeTodo extends Interaction {
 	name = "make-todo";
 	description = "Make a daily todo.json";
-	titleOp = new SlashCommandStringOption()
-		.setName("title")
-		.setDescription("title of todo")
-		.setMaxLength(128)
-		.setRequired(true);
-	contentOp = new SlashCommandStringOption()
-		.setName("content")
-		.setDescription("description of todo")
-		.setMaxLength(256)
-		.setRequired(false);
-	options = [this.titleOp, this.contentOp];
 
-	async execute(interaction: CommandInteraction, message: Message) {
+	async execute(interaction: CommandInteraction, _message: Message) {
 		if (!interaction.isChatInputCommand()) return;
 
-		const title = interaction.options.getString("title");
-		const content = interaction.options.getString("content");
-		const discordUserId = interaction.user.id;
+		// Create the modal
+		const modal = new ModalBuilder()
+			.setCustomId("makeTodoModal")
+			.setTitle("Create a Todo");
 
-		const foundUser = await db.user.findUnique({
-			where: {
-				discordId: discordUserId
-			}
-		});
+		// Add components to modal
 
-		if (title && foundUser) {
-			try {
-				const todo = await db.todo.create({
-					data: {
-						title: title,
-						content: content,
-						authorId: foundUser.id
-					}
-				});
-				await interaction.editReply({
-					embeds: [
-						createEmbed().addFields([
-							{
-								name: "Title",
-								value: todo.title
-							},
-							{
-								name: "Content",
-								value: todo.content ?? "null"
-							},
-							{
-								name: "Status",
-								value: todo.status
-							},
-							{
-								name: "Created At",
-								value: todo.createdAt.toISOString()
-							},
-							{
-								name: "ID",
-								value: todo.id
-							}
-						])
-					]
-				});
-				allowedTodoEmojis
-					.slice(0, -2) // All but last 2 emojis. (used for confirm delete)
-					.forEach(async (e) => await message.react(e));
-			} catch (error) {
-				console.log(error);
-			}
-		} else {
-			await interaction.deleteReply();
-			const replyContent = foundUser
-				? "Must be a title issue."
-				: "Something went wrong... Is your user linked with /link-user?";
-			await interaction.followUp({
-				content: replyContent,
-				ephemeral: true
-			});
-		}
+		// Create the text input components
+		const titleInput = new TextInputBuilder()
+			.setCustomId("titleInput")
+			// The label is the prompt the user sees for this input
+			.setLabel("Title of the todo")
+			// Short means only a single line of text
+			.setStyle(TextInputStyle.Short)
+			.setRequired(true);
+
+		const descriptionInput = new TextInputBuilder()
+			.setCustomId("descriptionInput")
+			.setLabel("Contents of the todo")
+			// Paragraph means multiple lines of text.
+			.setStyle(TextInputStyle.Paragraph)
+			.setMaxLength(255)
+			.setRequired(false);
+
+		// An action row only holds one text input,
+		// so you need one action row per text input.
+		const titleActionRow = new ActionRowBuilder<
+			ModalActionRowComponentBuilder
+		>().addComponents(titleInput);
+		const descriptionActionRow = new ActionRowBuilder<
+			ModalActionRowComponentBuilder
+		>().addComponents(descriptionInput);
+
+		// Add inputs to the modal
+		modal.addComponents(titleActionRow, descriptionActionRow);
+
+		// Show the modal to the user
+		await interaction.showModal(modal);
 
 		return;
 	}

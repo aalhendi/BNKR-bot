@@ -13,6 +13,6 @@ export default class Help extends Interaction {
       `
 		);
 
-		return interaction.editReply({ embeds: [message] });
+		return interaction.reply({ embeds: [message] });
 	}
 }

@@ -12,13 +12,13 @@ export default class Avatar extends Interaction {
 	async execute(interaction: CommandInteraction) {
 		const user = interaction.options.getUser("target");
 		if (user) {
-			return interaction.editReply(
+			return interaction.reply(
 				`${user.username}'s avatar: ${user.displayAvatarURL({
 					forceStatic: false
 				})}`
 			);
 		}
-		return interaction.editReply(
+		return interaction.reply(
 			`Your avatar: ${interaction.user.displayAvatarURL({
 				forceStatic: false
 			})}`
