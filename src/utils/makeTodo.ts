@@ -1,7 +1,7 @@
 import { ModalSubmitInteraction } from "discord.js";
 import createEmbed from "./createEmbed";
-import { allowedTodoEmojis } from "./emojiLists";
 import { db } from "./prisma";
+import { todoButtons } from "./todoButtons";
 
 export default async function makeTodo(interaction:ModalSubmitInteraction){
 				const title = interaction.fields.getTextInputValue("titleInput");
@@ -25,7 +25,7 @@ export default async function makeTodo(interaction:ModalSubmitInteraction){
 								authorId: foundUser.id
 							}
 						});
-						const replyMessage = await interaction.reply({
+						await interaction.reply({
 							embeds: [
 								createEmbed().addFields([
 									{
@@ -50,11 +50,9 @@ export default async function makeTodo(interaction:ModalSubmitInteraction){
 									}
 								])
 							],
+							components: [todoButtons], // Action buttons for todo item
 							fetchReply: true
 						});
-						allowedTodoEmojis
-							.slice(0, -2) // All but last 2 emojis. (used for confirm delete)
-							.forEach(async (e) => await replyMessage.react(e));
 					} catch (error) {
 						console.log(error);
 					}

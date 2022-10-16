@@ -1,4 +1,5 @@
 import { Interaction, InteractionType } from "discord.js";
+import handleTodoButton from "../utils/handleTodoButton";
 import Event from "../libs/structures/Event";
 import makeTodo from "../utils/makeTodo";
 
@@ -25,7 +26,14 @@ export default class interactionCreate extends Event {
 			}
 		} else if (interaction.type === InteractionType.ModalSubmit) {
 			if (interaction.customId === "makeTodoModal") {
-			  makeTodo(interaction)
+				makeTodo(interaction);
+			}
+		} else if (interaction.isButton() && interaction.message.interaction) {
+			if (
+				interaction.message.interaction.commandName == "get-todo" ||
+				interaction.message.interaction.commandName == "make-todo"
+			) {
+				handleTodoButton(interaction);
 			}
 		}
 		return;

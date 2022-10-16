@@ -1,12 +1,11 @@
 import {
 	CommandInteraction,
-	Message,
 	SlashCommandStringOption
 } from "discord.js";
-import { allowedTodoEmojis } from "../../utils/emojiLists";
 import Interaction from "../../libs/structures/Interaction";
 import createEmbed from "../../utils/createEmbed";
 import { db } from "../../utils/prisma";
+import { todoButtons } from "../../utils/todoButtons";
 
 export default class GetTodo extends Interaction {
 	name = "get-todo";
@@ -19,7 +18,7 @@ export default class GetTodo extends Interaction {
 		.setRequired(true);
 	options = [this.idOp];
 
-	async execute(interaction: CommandInteraction, message: Message) {
+	async execute(interaction: CommandInteraction) {
 		if (!interaction.isChatInputCommand()) return;
 
 		const todoId = interaction.options.getString("id") ?? "null";
@@ -77,11 +76,9 @@ export default class GetTodo extends Interaction {
 									value: foundTodo.id
 								}
 							])
-						]
+						],
+						components: [todoButtons] // Action buttons for todo item
 					});
-					allowedTodoEmojis
-						.slice(0, -2) // All but last 2 emojis. (used for confirmation)
-						.forEach(async (e) => await message.react(e));
 				} else {
 					await interaction.reply({
 						content: "Could not find todo",

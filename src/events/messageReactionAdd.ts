@@ -1,7 +1,6 @@
-import { allowedBookMarkEmojis, allowedTodoEmojis } from "../utils/emojiLists";
+import { allowedBookMarkEmojis} from "../utils/emojiLists";
 import { MessageReaction, User } from "discord.js";
 import Event from "../libs/structures/Event";
-import handleTodoReaction from "../utils/handleTodoReaction";
 import handleBookmarkReaction from "../utils/handleBookmarkReaction";
 
 export default class RessageReactionAdd extends Event {
@@ -20,12 +19,6 @@ export default class RessageReactionAdd extends Event {
 			}
 		}
 		if (
-			reaction.emoji.name &&
-			allowedTodoEmojis.includes(reaction.emoji.name) &&
-			reaction.message.author?.id === process.env.CLIENT_ID
-		) {
-			handleTodoReaction(reaction, user);
-		} else if (
 			reaction.emoji.name &&
 			allowedBookMarkEmojis.includes(reaction.emoji.name)
 		) {
