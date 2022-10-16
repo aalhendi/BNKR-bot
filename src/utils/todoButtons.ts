@@ -32,16 +32,16 @@ export const todoButtons =
 				.setStyle(ButtonStyle.Danger)
 		);
 export const confirmButtons =
-        new ActionRowBuilder<MessageActionRowComponentBuilder>()
-            .addComponents(
-                new ButtonBuilder()
-                    .setCustomId("cancelTodoDelete")
-                    .setLabel("Cancel Delete")
-                    .setStyle(ButtonStyle.Secondary)
-            )
-            .addComponents(
-                new ButtonBuilder()
-                    .setCustomId("confirmTodoDelete")
-                    .setLabel("Confirm Delete")
-                    .setStyle(ButtonStyle.Danger)
-            );
+	new ActionRowBuilder<MessageActionRowComponentBuilder>()
+		.addComponents(
+			new ButtonBuilder()
+				.setCustomId("cancelTodoDelete")
+				.setLabel("Cancel Delete")
+				.setStyle(ButtonStyle.Secondary)
+		)
+		.addComponents(
+			new ButtonBuilder()
+				.setCustomId("confirmTodoDelete")
+				.setLabel("Confirm Delete")
+				.setStyle(ButtonStyle.Danger)
+		);

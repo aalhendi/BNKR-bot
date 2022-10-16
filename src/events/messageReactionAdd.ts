@@ -1,12 +1,9 @@
-import { allowedBookMarkEmojis} from "../utils/emojiLists";
-import { MessageReaction, User } from "discord.js";
+import { MessageReaction } from "discord.js";
 import Event from "../libs/structures/Event";
-import handleBookmarkReaction from "../utils/handleBookmarkReaction";
-
 export default class RessageReactionAdd extends Event {
 	name = "messageReactionAdd";
 
-	async execute(reaction: MessageReaction, user: User): Promise<void> {
+	async execute(reaction: MessageReaction): Promise<void> {
 		// When a reaction is received, check if the structure is partial
 		if (reaction.partial) {
 			// If the message this reaction belongs to was removed, the fetching might result in an API error which should be handled
@@ -17,12 +14,6 @@ export default class RessageReactionAdd extends Event {
 				// Return as `reaction.message.author` may be undefined/null
 				return;
 			}
-		}
-		if (
-			reaction.emoji.name &&
-			allowedBookMarkEmojis.includes(reaction.emoji.name)
-		) {
-			handleBookmarkReaction(reaction, user);
 		}
 	}
 }

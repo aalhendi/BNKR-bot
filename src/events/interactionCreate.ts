@@ -2,6 +2,7 @@ import { Interaction, InteractionType } from "discord.js";
 import handleTodoButton from "../utils/handleTodoButton";
 import Event from "../libs/structures/Event";
 import makeTodo from "../utils/makeTodo";
+import handleBookmark from "..//utils/handleBookmark";
 
 export default class interactionCreate extends Event {
 	name = "interactionCreate";
@@ -28,12 +29,20 @@ export default class interactionCreate extends Event {
 			if (interaction.customId === "makeTodoModal") {
 				makeTodo(interaction);
 			}
-		} else if (interaction.isButton() && interaction.message.interaction) {
+		} else if (interaction.isButton()) {
+			if (interaction.customId.includes("Bookmark")) {
+				handleBookmark(interaction);
+			} else if (interaction.message.interaction) {
+				if (interaction.message.interaction.commandName.includes("todo")) {
+					handleTodoButton(interaction);
+				}
+			}
+		} else if (interaction.isContextMenuCommand()) {
 			if (
-				interaction.message.interaction.commandName == "get-todo" ||
-				interaction.message.interaction.commandName == "make-todo"
+				interaction.isMessageContextMenuCommand() &&
+				interaction.commandName === "bookmark"
 			) {
-				handleTodoButton(interaction);
+				handleBookmark(interaction);
 			}
 		}
 		return;
