@@ -24,8 +24,8 @@ export default class Shorten extends Interaction {
 		      const slug = interaction.options.getString("slug");
 		      if (url && slug) {
 			try {
-			  const res = await axios.post('https://usuq.lol/', {url:url, slug:slug})
-			  await interaction.reply(`${res.status}: Success. https://usuq.lol/${slug}`);
+			  const res = await axios.post('https://rax.mov/', {url:url, slug:slug})
+			  await interaction.reply(`${res.status}: Success. https://rax.mov/${slug}`);
 			} catch (error) {
 			  if (axios.isAxiosError(error)){
 			    error.response && await interaction.reply(`${error.response.status} ${error.response.statusText}\n ${error.response.data}`);
