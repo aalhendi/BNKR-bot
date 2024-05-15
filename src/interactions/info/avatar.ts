@@ -1,4 +1,4 @@
-import { CommandInteraction, SlashCommandUserOption } from "discord.js";
+import { ApplicationCommandOptionType, CommandInteraction, SlashCommandUserOption } from "discord.js";
 import Interaction from "../../libs/structures/Interaction";
 
 export default class Avatar extends Interaction {
@@ -10,13 +10,16 @@ export default class Avatar extends Interaction {
 	options: any[] = [this.userOp];
 
 	async execute(interaction: CommandInteraction) {
-		const user = interaction.options.getUser("target");
-		if (user) {
-			return interaction.reply(
-				`${user.username}'s avatar: ${user.displayAvatarURL({
-					forceStatic: false
-				})}`
-			);
+		const userOption = interaction.options.data.find(option => option.name === 'target' && option.type === ApplicationCommandOptionType.User);
+		if (userOption && userOption.type === ApplicationCommandOptionType.User) {
+			const user = userOption.user;
+			if (user) {
+				return interaction.reply(
+					`${user.username}'s avatar: ${user.displayAvatarURL({
+						forceStatic: false
+					})}`
+				);
+			}
 		}
 		return interaction.reply(
 			`Your avatar: ${interaction.user.displayAvatarURL({
